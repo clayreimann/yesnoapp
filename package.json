@@ -1,0 +1,12 @@
+{
+  "name": "node",
+  "description": "a node test",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "./index.js"
+  },
+  "dependencies": {
+    "apn": "^1.6.0"
+  }
+}
