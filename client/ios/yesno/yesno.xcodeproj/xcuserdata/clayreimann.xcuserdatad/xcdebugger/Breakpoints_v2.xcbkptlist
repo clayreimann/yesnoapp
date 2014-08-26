@@ -10,43 +10,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "yesno/View Controllers/YNRegisterViewController.m"
-            timestampString = "430715711.25293"
+            timestampString = "430720289.856234"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
             landmarkName = "-registerEmail:"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[YNRegisterViewController registerEmail:]"
-                  moduleName = "yesno"
-                  urlString = "file:///Users/clayreimann/Projects/YesNoApp/client/ios/yesno/yesno/View%20Controllers/YNRegisterViewController.m"
-                  timestampString = "430715782.070216"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "32"
-                  endingLineNumber = "32"
-                  offsetFromSymbolStart = "520">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__42-[YNRegisterViewController registerEmail:]_block_invoke"
-                  moduleName = "yesno"
-                  urlString = "file:///Users/clayreimann/Projects/YesNoApp/client/ios/yesno/yesno/View%20Controllers/YNRegisterViewController.m"
-                  timestampString = "430715782.070557"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "32"
-                  endingLineNumber = "32"
-                  offsetFromSymbolStart = "60">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "yesno/View Controllers/YNRegisterViewController.m"
+            timestampString = "430719496.533112"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "-registerEmail:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

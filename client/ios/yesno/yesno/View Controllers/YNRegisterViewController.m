@@ -33,7 +33,27 @@ NSString *BaseAPIPath = @"http://clank.sudostudios.com/yes";
         return [NSJSONSerialization JSONObjectWithData:conn.responseData options:0 error:e];
 
     } completionBlock:^(FSNConnection *conn) {
-        NSLog(@"%@", conn.parseResult);
+        NSString *message;
+        NSDictionary *result;
+        
+        NSLog(@"data: %@\nresult: %@\nerror: %@", [conn.responseData stringFromUTF8], conn.parseResult, conn.error);
+        
+        message = @"Failed to register your device";
+        if(conn.parseResult != nil) {
+            result = (NSDictionary *)conn.parseResult;
+            
+            if(result[@"success"]) {
+                message =[NSString stringWithFormat:@"Successfully registered your device as user: %@", result[@"userID"]];
+            }
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[[UIAlertView alloc] initWithTitle:@"Register device"
+                                        message:message
+                                       delegate:nil
+                              cancelButtonTitle:@"Ok"
+                              otherButtonTitles:nil] show];
+        });
     } progressBlock:nil];
     
     [c start];
