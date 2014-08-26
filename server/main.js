@@ -172,7 +172,8 @@ var register = function(request, response) {
     }
 
     if(pushkeys[userID] !== undefined) {
-      pushkeys[userID] += pushkeys[userID] + ',' + data.apnID;
+      pushkeys[userID] = data.apnID;
+      // pushkeys[userID] += pushkeys[userID] + ',' + data.apnID;
     } else {
       pushkeys[userID] = data.apnID;
     }
@@ -208,15 +209,14 @@ var router = function(request, response) {
     lookup(request, response);
   } else if(request.url.match('^/push')) {
     sendPush(request, response);
+  } else {
+    console.log("Request: " + request.url + " not matched.");
+
+    response.writeHead(404);
+    response.write('<!DOCTYPE html><html><head><title>Development Server</title><link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/cosmo/bootstrap.min.css"></head><body><div class="container" style="padding-top: 10vh;text-align: center;"><h2>Sudo Studios</h2>');
+    response.write('<h3>404: The page you are looking for: ' + request.url + ' cannot be found.</h3></div></body></html>');
+    response.end();
   }
-
-  console.log("Request: " + request.url);
-  console.log();
-
-  response.writeHead(404);
-  response.write('<!DOCTYPE html><html><head><title>Development Server</title><link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/cosmo/bootstrap.min.css"></head><body><div class="container" style="padding-top: 10vh;text-align: center;"><h2>Sudo Studios</h2>');
-  response.write('<h3>404: The page you are looking for: ' + request.url + ' cannot be found.</h3></div></body></html>');
-  response.end();
 }
 
 http.createServer(router).listen(8888);
