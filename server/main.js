@@ -11,8 +11,11 @@ var pushkeys = {};
 var questions = {};
 
 var options = {
-  "production": false
+  "production": false,
+  "key": "key_sandbox.pem",
+  "cert": "cert_sandbox.pem"
 };
+
 
 var askForm = "<!DOCTYPE html><html><head><title>Ask Form</title></head><body><form method='POST'><label>User 1:</label><input type='text' name='interrogator'/><br><label>User 2:</label><input type='text' name='respondent'/><br><label>Question:</label><input type='text' name='interrogative'/><br><input type='submit' value='Inquire'/></form></body></html>";
 var answerForm = "<!DOCTYPE html><html><head><title>Answer Form</title></head><body><form method='POST'><label>User 1:</label><input type='text' name='respondent'/><br><label>Answer:</label><select name='rejoinder'><option>Yes</option><option>No</option></select><br><input type='submit' value='Retort'/></form></body></html>";
@@ -45,6 +48,41 @@ function sendAPN(recipient, interrogator, index, question) {
 
   conn.pushNotification(notification, device);
 }
+
+
+
+
+function sendPush(request, response) {
+  response.writeHead(200, {'Content Type': 'text/html'});
+  response.write('<!DOCTYPE html><html><head><title>Test Push</title></head><body>');
+  response.write('<pre>' + JSON.stringify(users, null, 2) + '\n' + JSON.stringify(pushkeys, null, 2) + '</pre>');
+  response.write('<form><input type="text" name="token" placeholder="User ID"><input type="text" name="message" placeholder="Message"><input type="submit" value="Push"></form>');
+
+  var query = url.parse(request.url, true).query;
+  if(query.token) {
+    try {
+      var token, device, notification;
+      token = pushkeys[query.token];
+      device = new apn.Device(token);
+      notification = new apn.Notification();
+
+      notification.alert = query.message;
+      notification.badge = 2;
+
+      conn.pushNotification(notification, device);
+    } catch(e) {
+      response.write('<h3>Error: ' + e.message + '</h3><pre>');
+      response.write(e.stack);
+      response.write('</pre>');
+    }
+  }
+
+  response.write('</body></html>');
+  response.end();
+}
+
+
+
 
 
 var ask = function(request, response) {
@@ -168,12 +206,16 @@ var router = function(request, response) {
     register(request, response);
   } else if(request.url.match('^/lookup')) {
     lookup(request, response);
+  } else if(request.url.match('^/push')) {
+    sendPush(request, response);
   }
 
   console.log("Request: " + request.url);
   console.log();
 
   response.writeHead(404);
+  response.write('<!DOCTYPE html><html><head><title>Development Server</title><link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/cosmo/bootstrap.min.css"></head><body><div class="container" style="padding-top: 10vh;text-align: center;"><h2>Sudo Studios</h2>');
+  response.write('<h3>404: The page you are looking for: ' + request.url + ' cannot be found.</h3></div></body></html>');
   response.end();
 }
 
