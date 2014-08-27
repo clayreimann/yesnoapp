@@ -45,7 +45,7 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [[[UIAlertView alloc] initWithTitle:@"Remote notification"
-                                message:@"no completion handler"
+                                message:userInfo[@"aps"][@"alert"]
                                delegate:nil
                       cancelButtonTitle:@"Ok"
                       otherButtonTitles:nil] show];
@@ -53,12 +53,16 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [[[UIAlertView alloc] initWithTitle:@"Remote notification"
-                                message:@"with completion handler"
+                                message:userInfo[@"aps"][@"alert"]
                                delegate:nil
                       cancelButtonTitle:@"Ok"
                       otherButtonTitles:nil] show];
     
     completionHandler(UIBackgroundFetchResultNoData);
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
+    NSLog(@"user info: %@", userInfo);
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -67,7 +71,7 @@
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    NSLog(@"error registering for remote notifications: %@");
+    NSLog(@"error registering for remote notifications: %@", error);
 }
 
 @end

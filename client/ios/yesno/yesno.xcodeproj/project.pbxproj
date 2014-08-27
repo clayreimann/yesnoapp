@@ -17,6 +17,8 @@
 		81132C3919AC29B200C880C5 /* FSNConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 81132C3419AC29B200C880C5 /* FSNConnection.m */; };
 		81132C3A19AC29B200C880C5 /* FSNData.m in Sources */ = {isa = PBXBuildFile; fileRef = 81132C3619AC29B200C880C5 /* FSNData.m */; };
 		81132C3B19AC29B200C880C5 /* license.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81132C3719AC29B200C880C5 /* license.txt */; };
+		81132C3E19AD856B00C880C5 /* YNQuestionMaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 81132C3D19AD856B00C880C5 /* YNQuestionMaster.m */; };
+		81132C4219AD869700C880C5 /* YNUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 81132C4119AD869700C880C5 /* YNUser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,10 @@
 		81132C3519AC29B200C880C5 /* FSNData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSNData.h; sourceTree = "<group>"; };
 		81132C3619AC29B200C880C5 /* FSNData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSNData.m; sourceTree = "<group>"; };
 		81132C3719AC29B200C880C5 /* license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license.txt; sourceTree = "<group>"; };
+		81132C3C19AD856B00C880C5 /* YNQuestionMaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YNQuestionMaster.h; sourceTree = "<group>"; };
+		81132C3D19AD856B00C880C5 /* YNQuestionMaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YNQuestionMaster.m; sourceTree = "<group>"; };
+		81132C4019AD869700C880C5 /* YNUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YNUser.h; sourceTree = "<group>"; };
+		81132C4119AD869700C880C5 /* YNUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YNUser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +99,7 @@
 				81132C1119AC166C00C880C5 /* AppDelegate.h */,
 				81132C1219AC166C00C880C5 /* AppDelegate.m */,
 				81132C2A19AC1E5000C880C5 /* iPhone.storyboard */,
+				81132C3F19AD857C00C880C5 /* Model */,
 				81132C2F19AC268E00C880C5 /* View Controllers */,
 				81132C3019AC29B100C880C5 /* FSNetworking */,
 				81132C1419AC166D00C880C5 /* Images.xcassets */,
@@ -148,6 +155,17 @@
 				81132C3719AC29B200C880C5 /* license.txt */,
 			);
 			path = FSNetworking;
+			sourceTree = "<group>";
+		};
+		81132C3F19AD857C00C880C5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				81132C3C19AD856B00C880C5 /* YNQuestionMaster.h */,
+				81132C3D19AD856B00C880C5 /* YNQuestionMaster.m */,
+				81132C4019AD869700C880C5 /* YNUser.h */,
+				81132C4119AD869700C880C5 /* YNUser.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,10 +277,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				81132C1319AC166C00C880C5 /* AppDelegate.m in Sources */,
+				81132C4219AD869700C880C5 /* YNUser.m in Sources */,
 				81132C3A19AC29B200C880C5 /* FSNData.m in Sources */,
 				81132C1019AC166C00C880C5 /* main.m in Sources */,
 				81132C2E19AC267600C880C5 /* YNRegisterViewController.m in Sources */,
 				81132C3919AC29B200C880C5 /* FSNConnection.m in Sources */,
+				81132C3E19AD856B00C880C5 /* YNQuestionMaster.m in Sources */,
 				81132C3819AC29B200C880C5 /* FSN_categories.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
