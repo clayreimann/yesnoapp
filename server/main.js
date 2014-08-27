@@ -67,7 +67,7 @@ function sendPush(request, response) {
       notification = new apn.Notification();
 
       notification.alert = query.message;
-      notification.badge = 2;
+      notification.category = 'question';
 
       conn.pushNotification(notification, device);
     } catch(e) {
