@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 
+#import "YNQuestionDataSource.h"
+
 @interface AppDelegate ()
             
 
@@ -62,7 +64,13 @@
 }
 
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
-    NSLog(@"user info: %@", userInfo);
+    NSLog(@"identifier: %@ user info: %@", identifier, userInfo);
+    
+    // go to question and mark as answered
+    
+    [[YNQuestionDataSource source] recievedQuestion:userInfo withAction:YES];
+    
+    completionHandler();
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {

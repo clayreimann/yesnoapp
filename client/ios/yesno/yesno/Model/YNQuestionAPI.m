@@ -6,24 +6,24 @@
 //  Copyright (c) 2014 Sudo Studios. All rights reserved.
 //
 
-#import "YNQuestionMaster.h"
+#import "YNQuestionAPI.h"
 
 #import <UIKit/UIKit.h>
 
 #import "YNUser.h"
 #import "FSNConnection.h"
 
-@implementation YNQuestionMaster
+@implementation YNQuestionAPI
 
 static NSString const *BaseAPIPath = @"http://clank.sudostudios.com/yes";
 
-+ (YNQuestionMaster *)questionMaster {
-    static YNQuestionMaster *master = nil;
++ (YNQuestionAPI *)questionAPI {
+    static YNQuestionAPI *master = nil;
     
     if(master == nil) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            master = [YNQuestionMaster new];
+            master = [YNQuestionAPI new];
         });
     }
     
@@ -103,6 +103,35 @@ static NSString const *BaseAPIPath = @"http://clank.sudostudios.com/yes";
     
     [c start];
 
+}
+
+- (void)addUserAsFriend:(YNUser *)user {
+    NSURL *url = [NSURL URLWithString:[BaseAPIPath stringByAppendingString:@"/lookup"]];
+    NSDictionary *params = @{
+                             @"email": user.email
+                             };
+    
+    FSNConnection *c = [FSNConnection withUrl:url method:FSNRequestMethodGET headers:nil parameters:params
+                                   parseBlock:^id(FSNConnection *conn, NSError **e)
+    {
+        return [NSJSONSerialization JSONObjectWithData:conn.responseData options:0 error:e];
+    } completionBlock:^(FSNConnection *conn)
+    {
+        NSDictionary *result;
+        NSNumber *userID;
+        
+        if([conn.parseResult isKindOfClass:[NSDictionary class]]) {
+            result = (NSDictionary *)conn.parseResult;
+            if(result[@"success"]) {
+                // add friend
+                userID = result[@"respondent"];
+            }
+        } else {
+            // server error
+        }
+    } progressBlock:nil];
+    
+    [c start];
 }
 
 @end

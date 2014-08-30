@@ -10,13 +10,14 @@
 
 @class YNUser;
 @class YNQuestion;
-@interface YNQuestionMaster : NSObject
+@interface YNQuestionAPI : NSObject
 
-+ (YNQuestionMaster *)questionMaster;
++ (YNQuestionAPI *)questionAPI;
 
 - (void)registerForPushNotifications;
 
 - (void)registerUser:(YNUser *)user;
+- (void)addUserAsFriend:(YNUser *)user;
 - (void)askQuestion:(YNQuestion *)question;
 
 @end

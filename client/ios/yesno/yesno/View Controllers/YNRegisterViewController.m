@@ -9,18 +9,18 @@
 #import "YNRegisterViewController.h"
 
 #import "YNUser.h"
-#import "YNQuestionMaster.h"
+#import "YNQuestionAPI.h"
 
 @implementation YNRegisterViewController
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [[YNQuestionMaster questionMaster] registerForPushNotifications];
+    [[YNQuestionAPI questionAPI] registerForPushNotifications];
 }
 
 - (void)registerEmail:(id)sender {
-    YNQuestionMaster *questionMaster = [YNQuestionMaster questionMaster];
+    YNQuestionAPI *questionMaster = [YNQuestionAPI questionAPI];
     YNUser *user;
     
     user = [YNUser new];
