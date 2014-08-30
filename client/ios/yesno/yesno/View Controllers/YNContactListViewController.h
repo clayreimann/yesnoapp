@@ -10,6 +10,8 @@
 
 @interface YNContactListViewController : UITableViewController
 
+@property (nonatomic) IBOutlet UITextField *questionText;
+
 - (IBAction)askQuestion:(id)sender;
 
 @end

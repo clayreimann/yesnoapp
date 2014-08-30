@@ -12,6 +12,7 @@
 
 #import "StringConstants.h"
 #import "YNUser.h"
+#import "YNQuestion.h"
 #import "YNQuestionDataSource.h"
 
 @interface FSNConnection (APIMethods)
@@ -132,7 +133,9 @@ static NSString const *BaseAPIPath = @"http://clank.sudostudios.com/yes";
             result = @{@"error": c.error};
         }
         
-        completion(result);
+        if(completion != nil) {
+            completion(result);
+        }
 
     }];
     
@@ -167,7 +170,9 @@ static NSString const *BaseAPIPath = @"http://clank.sudostudios.com/yes";
             result = @{@"error": c.error};
         }
         
-        completion(result);
+        if(completion != nil) {
+             completion(result);
+        }
         
     }];
     
@@ -181,7 +186,29 @@ static NSString const *BaseAPIPath = @"http://clank.sudostudios.com/yes";
  *  @param completion a block that returns a dictionary object containing either {success: NSString} or {error: NSError}
  */
 - (void)askQuestion:(YNQuestion *)question completion:(APICompletion)completion {
+    NSDictionary *params = @{@"interrogator": question.fromUser, @"respondent": question.fromUser, @"interrogative": question.interrogative };
     
+    FSNConnection *connection = [FSNConnection apiEndpoint:@"/ask" withParameters:params completion:^(FSNConnection *c) {
+        NSDictionary *result;
+        
+        if([c.parseResult isKindOfClass:[NSDictionary class]]) {
+            result = (NSDictionary *)c.parseResult;
+            
+            if([result[@"success"] boolValue]) {
+                
+            } else {
+                result = @{@"error": @"Malformed question"};
+            }
+        } else {
+            result = @{@"error": c.error};
+        }
+        
+        if(completion != nil) {
+            completion(result);
+        }
+    }];
+    
+    [connection start];
 }
 
 @end

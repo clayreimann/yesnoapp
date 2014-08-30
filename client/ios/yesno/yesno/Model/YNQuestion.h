@@ -11,8 +11,8 @@
 @interface YNQuestion : NSObject
 
 
-@property (nonatomic) NSInteger fromUser;
-@property (nonatomic) NSInteger toUser;
+@property (nonatomic) NSNumber *fromUser;
+@property (nonatomic) NSNumber *toUser;
 @property (nonatomic) NSString *interrogative;
 @property (nonatomic) NSString *response;
 
