@@ -60,12 +60,63 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Ask" id="Ofk-WW-YsQ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="psN-Le-mSP"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="psN-Le-mSP">
+                            <connections>
+                                <segue destination="477-p5-B3g" kind="push" id="0wT-dw-tz0"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XYX-pQ-ajI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1459" y="-566"/>
+        </scene>
+        <!--Add Contact View Controller - Add Friend-->
+        <scene sceneID="jL3-Ju-zYO">
+            <objects>
+                <viewController title="Add Friend" id="477-p5-B3g" customClass="YNAddContactViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bFV-zR-r6X"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vvc-wS-Eck"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cHi-4n-6UB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X5g-Hz-P3I">
+                                <rect key="frame" x="20" y="81" width="280" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Z2-o9-P6f">
+                                <rect key="frame" x="20" y="119" width="280" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6fY-T0-90V">
+                                <rect key="frame" x="20" y="157" width="280" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add Friend" id="dFl-MX-BGc">
+                        <barButtonItem key="rightBarButtonItem" title="Add" id="1gr-za-bvu">
+                            <connections>
+                                <action selector="addContact:" destination="477-p5-B3g" id="2my-dk-slL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="email" destination="0Z2-o9-P6f" id="AS2-23-7lB"/>
+                        <outlet property="name" destination="X5g-Hz-P3I" id="wR2-ND-qVv"/>
+                        <outlet property="phone" destination="6fY-T0-90V" id="QhM-ua-1xC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7eu-5w-edg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1897" y="-566"/>
         </scene>
         <!--Question List View Controller - Answer-->
         <scene sceneID="kHS-R9-6me">
@@ -76,10 +127,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="default" indentationWidth="10" id="Cwp-my-Xpa">
+                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Question" textLabel="eQQ-DX-pDE" style="IBUITableViewCellStyleDefault" id="Cwp-my-Xpa">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Cwp-my-Xpa" id="FDG-Up-ApK">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eQQ-DX-pDE">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>

@@ -10,4 +10,6 @@
 
 @interface YNContactListViewController : UITableViewController
 
+- (IBAction)askQuestion:(id)sender;
+
 @end

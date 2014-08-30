@@ -16,18 +16,20 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [[YNQuestionAPI questionAPI] registerForPushNotifications];
+    [[YNQuestionAPI api] registerForPushNotifications];
 }
 
 - (void)registerEmail:(id)sender {
-    YNQuestionAPI *questionMaster = [YNQuestionAPI questionAPI];
+    YNQuestionAPI *questionMaster = [YNQuestionAPI api];
     YNUser *user;
     
     user = [YNUser new];
     user.name = @"Foo";
     user.email = self.emailField.text;
     
-    [questionMaster registerUser:user];
+    [questionMaster registerUser:user completion:^(NSDictionary *json) {
+        
+    }];
 }
 
 @end

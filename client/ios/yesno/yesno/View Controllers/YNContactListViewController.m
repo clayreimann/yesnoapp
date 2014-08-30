@@ -8,9 +8,14 @@
 
 #import "YNContactListViewController.h"
 
-#import "YNQuestionAPI.h"
+#import "StringConstants.h"
+#import "YNQuestionDataSource.h"
 
-@interface YNContactListViewController ()
+@interface YNContactListViewController () {
+    YNQuestionDataSource *_source;
+}
+
+- (void)didAddFriend:(NSNotification *)notificaiton;
 
 @end
 
@@ -19,14 +24,26 @@
 
 #pragma mark - Navigation
 
-
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)viewDidLoad {
+    _source = [YNQuestionDataSource source];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAddFriend:) name:kYNAddedFriendNotification object:nil];
 }
 
+- (void)didAddFriend:(NSNotification *)notificaiton {
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.tableView reloadData];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [_source numberOfUserRows];
+}
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
 
 @end

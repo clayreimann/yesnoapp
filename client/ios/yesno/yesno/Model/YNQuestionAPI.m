@@ -155,10 +155,13 @@ static NSString const *BaseAPIPath = @"http://clank.sudostudios.com/yes";
         
         if([c.parseResult isKindOfClass:[NSDictionary class]]) {
             result = (NSDictionary *)c.parseResult;
-            if(result[@"success"]) {
+            
+            if([result[@"success"] boolValue]) {
                 userID = result[@"respondent"];
                 user.userID = userID;
                 [[YNQuestionDataSource source] addUser:user];
+            } else {
+                result = @{@"error": @"Couldn't find a friend with that info"};
             }
         } else {
             result = @{@"error": c.error};
