@@ -24,6 +24,7 @@
 		81132C4B19B11DD000C880C5 /* YNAddContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81132C4A19B11DD000C880C5 /* YNAddContactViewController.m */; };
 		81132C4E19B11DDE00C880C5 /* YNQuestionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81132C4D19B11DDE00C880C5 /* YNQuestionListViewController.m */; };
 		81132C5119B11EA600C880C5 /* YNQuestionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 81132C5019B11EA600C880C5 /* YNQuestionDataSource.m */; };
+		81ADC0CA19B2333F00D934FF /* StringConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 81ADC0C919B2333F00D934FF /* StringConstants.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,8 @@
 		81132C4D19B11DDE00C880C5 /* YNQuestionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YNQuestionListViewController.m; sourceTree = "<group>"; };
 		81132C4F19B11EA600C880C5 /* YNQuestionDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YNQuestionDataSource.h; sourceTree = "<group>"; };
 		81132C5019B11EA600C880C5 /* YNQuestionDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YNQuestionDataSource.m; sourceTree = "<group>"; };
+		81ADC0C819B230FE00D934FF /* StringConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringConstants.h; sourceTree = "<group>"; };
+		81ADC0C919B2333F00D934FF /* StringConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringConstants.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +131,8 @@
 			children = (
 				81132C0E19AC166C00C880C5 /* Info.plist */,
 				81132C0F19AC166C00C880C5 /* main.m */,
+				81ADC0C819B230FE00D934FF /* StringConstants.h */,
+				81ADC0C919B2333F00D934FF /* StringConstants.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -312,6 +317,7 @@
 				81132C3919AC29B200C880C5 /* FSNConnection.m in Sources */,
 				81132C3E19AD856B00C880C5 /* YNQuestionAPI.m in Sources */,
 				81132C3819AC29B200C880C5 /* FSN_categories.m in Sources */,
+				81ADC0CA19B2333F00D934FF /* StringConstants.m in Sources */,
 				81132C5119B11EA600C880C5 /* YNQuestionDataSource.m in Sources */,
 				81132C4E19B11DDE00C880C5 /* YNQuestionListViewController.m in Sources */,
 			);
@@ -497,6 +503,7 @@
 				81132C2619AC167000C880C5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		81132C2719AC167000C880C5 /* Build configuration list for PBXNativeTarget "yesnoTests" */ = {
 			isa = XCConfigurationList;
@@ -505,6 +512,7 @@
 				81132C2919AC167000C880C5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

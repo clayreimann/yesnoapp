@@ -10,9 +10,13 @@
 
 @interface YNQuestion : NSObject
 
+
 @property (nonatomic) NSInteger fromUser;
 @property (nonatomic) NSInteger toUser;
 @property (nonatomic) NSString *interrogative;
-@property (nonatomic) BOOL answer;
+@property (nonatomic) NSString *response;
+
+@property (nonatomic, readonly) BOOL didAnswerQuestion;
+@property (nonatomic, readonly) BOOL responseToQuestion;
 
 @end

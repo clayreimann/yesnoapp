@@ -53,7 +53,7 @@
  *  @param userInfo    the NSDictionary representation of the push JSON
  */
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    [[YNQuestionDataSource source] recievedQuestion:userInfo withAction:nil];
+    [[YNQuestionDataSource source] receivedQuestion:userInfo withAction:nil];
 }
 
 /**
@@ -66,7 +66,7 @@
  */
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
-    [[YNQuestionDataSource source] recievedQuestion:userInfo withAction:nil];
+    [[YNQuestionDataSource source] receivedQuestion:userInfo withAction:nil];
     
     completionHandler(UIBackgroundFetchResultNewData);
 }
@@ -82,7 +82,7 @@
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
     
     // go to question and mark as answered
-    [[YNQuestionDataSource source] recievedQuestion:userInfo withAction:identifier];
+    [[YNQuestionDataSource source] receivedQuestion:userInfo withAction:identifier];
     
     completionHandler();
 }

@@ -5,13 +5,14 @@
 //  Created by Clay Reimann on 8/26/14.
 //  Copyright (c) 2014 Sudo Studios. All rights reserved.
 //
+#import <UIKit/UIKit.h>
+#import "FSNConnection.h"
 
 #import "YNQuestionAPI.h"
 
-#import <UIKit/UIKit.h>
-
+#import "StringConstants.h"
 #import "YNUser.h"
-#import "FSNConnection.h"
+#import "YNQuestionDataSource.h"
 
 @interface FSNConnection (APIMethods)
 
@@ -80,14 +81,14 @@ static NSString const *BaseAPIPath = @"http://clank.sudostudios.com/yes";
     
     yes                        = [UIMutableUserNotificationAction new];
     yes.title                  = @"Yes";
-    yes.identifier             = @"yes";
+    yes.identifier             = kYNPushActionYes;
     yes.destructive            = NO;
     yes.authenticationRequired = NO;
     yes.activationMode         = UIUserNotificationActivationModeBackground;
     
     no                        = [UIMutableUserNotificationAction new];
     no.title                  = @"No";
-    no.identifier             = @"no";
+    no.identifier             = kYNPushActionNo;
     no.destructive            = YES;
     no.authenticationRequired = NO;
     no.activationMode         = UIUserNotificationActivationModeBackground;
@@ -155,8 +156,9 @@ static NSString const *BaseAPIPath = @"http://clank.sudostudios.com/yes";
         if([c.parseResult isKindOfClass:[NSDictionary class]]) {
             result = (NSDictionary *)c.parseResult;
             if(result[@"success"]) {
-                // add friend
                 userID = result[@"respondent"];
+                user.userID = userID;
+                [[YNQuestionDataSource source] addUser:user];
             }
         } else {
             result = @{@"error": c.error};

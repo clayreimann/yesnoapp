@@ -24,7 +24,7 @@
 static NSMutableArray *users = nil;
 static NSMutableDictionary *questions = nil;
 
-
+#pragma mark - Initialization / Singleton methods
 + (YNQuestionDataSource *)source {
     static YNQuestionDataSource *shared = nil;
     if(shared == nil) {
@@ -56,7 +56,18 @@ static NSMutableDictionary *questions = nil;
     questions = [NSMutableDictionary new];
 }
 
-- (void)recievedQuestion:(NSDictionary *)pushNotification withAction:(NSString *)acceptance {
+
+#pragma mark - Interface methods
+//TODO: Move these to a protocol
+
+- (void)addUser:(YNUser *)user {
+    [users addObject:user];
+}
+
+- (void)receivedQuestion:(NSDictionary *)pushNotification withAction:(NSString *)acceptance {
+    YNQuestion *question = [YNQuestion new];
+    question.interrogative = pushNotification[@"aps"][@"alert"];
+
     questions[pushNotification[@"interrogator"]] = pushNotification[@"aps"][@"alert"];
 }
 

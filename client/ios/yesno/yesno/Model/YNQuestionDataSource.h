@@ -15,7 +15,7 @@
 + (YNQuestionDataSource *)source;
 
 - (void)addUser:(YNUser *)user;
-- (void)recievedQuestion:(NSDictionary *)pushNotification withAction:(NSString *)acceptance;
+- (void)receivedQuestion:(NSDictionary *)pushNotification withAction:(NSString *)acceptance;
 
 - (NSInteger)numberOfUserRows;
 - (NSInteger)numberOfQuestionSections;
