@@ -6,7 +6,11 @@
 //  Copyright (c) 2014 Sudo Studios. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "YNQuestionDataSource.h"
+
+#import "YNUser.h"
+#import "YNQuestion.h"
 
 @interface YNQuestionDataSource ()
 
@@ -52,7 +56,7 @@ static NSMutableDictionary *questions = nil;
     questions = [NSMutableDictionary new];
 }
 
-- (void)recievedQuestion:(NSDictionary *)pushNotification withAction:(BOOL)acceptance {
+- (void)recievedQuestion:(NSDictionary *)pushNotification withAction:(NSString *)acceptance {
     questions[pushNotification[@"interrogator"]] = pushNotification[@"aps"][@"alert"];
 }
 
@@ -69,11 +73,12 @@ static NSMutableDictionary *questions = nil;
 }
 
 - (YNUser *)userForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return nil;
+    return users[indexPath.row];
 }
 
 - (YNQuestion *)questionForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return nil;
+    YNUser *user = users[indexPath.row];
+    return questions[user.userID][indexPath.row];
 }
 
 @end

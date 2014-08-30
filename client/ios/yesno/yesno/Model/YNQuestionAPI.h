@@ -8,16 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void(^APICompletion)(NSDictionary *json);
+
 @class YNUser;
 @class YNQuestion;
 @interface YNQuestionAPI : NSObject
 
-+ (YNQuestionAPI *)questionAPI;
++ (YNQuestionAPI *)api;
 
 - (void)registerForPushNotifications;
 
-- (void)registerUser:(YNUser *)user;
-- (void)addUserAsFriend:(YNUser *)user;
-- (void)askQuestion:(YNQuestion *)question;
+- (void)registerUser:(YNUser *)user completion:(APICompletion)completion;
+- (void)addUserAsFriend:(YNUser *)user completion:(APICompletion)completion;
+- (void)askQuestion:(YNQuestion *)question completion:(APICompletion)completion;
 
 @end

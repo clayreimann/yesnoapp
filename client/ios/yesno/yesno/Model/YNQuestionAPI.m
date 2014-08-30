@@ -13,11 +13,49 @@
 #import "YNUser.h"
 #import "FSNConnection.h"
 
-@implementation YNQuestionAPI
+@interface FSNConnection (APIMethods)
+
++ (FSNConnection *)apiEndpoint:(NSString *)endpoint withParameters:(NSDictionary *)parameters completion:(FSNCompletionBlock)block;
+
+@end
+
+@implementation FSNConnection (APIMethods)
 
 static NSString const *BaseAPIPath = @"http://clank.sudostudios.com/yes";
 
-+ (YNQuestionAPI *)questionAPI {
++ (FSNConnection *)apiEndpoint:(NSString *)endpoint withParameters:(NSDictionary *)parameters completion:(FSNCompletionBlock)block {
+    NSURL *url;
+    FSNRequestMethod method;
+    
+    if([endpoint isEqualToString:@"/lookup"]) {
+        method = FSNRequestMethodGET;
+    } else {
+        method = FSNRequestMethodPOST;
+    }
+    
+    url = [NSURL URLWithString:[BaseAPIPath stringByAppendingString:endpoint]];
+    FSNConnection *connection = [FSNConnection
+                                 withUrl:url
+                                 method:method
+                                 headers:nil
+                                 parameters:parameters
+                                 parseBlock:^id(FSNConnection *c, NSError ** e) { return [NSJSONSerialization JSONObjectWithData:c.responseData options:0 error:e]; }
+                                 completionBlock:block
+                                 progressBlock:nil];
+    
+    return connection;
+}
+
+@end
+
+@implementation YNQuestionAPI
+
+/**
+ *  Get the singleton api instance
+ *
+ *  @return the singleton
+ */
++ (YNQuestionAPI *)api {
     static YNQuestionAPI *master = nil;
     
     if(master == nil) {
@@ -30,6 +68,9 @@ static NSString const *BaseAPIPath = @"http://clank.sudostudios.com/yes";
     return master;
 }
 
+/**
+ *  Encapsulate the process of asking for permission to push to the user
+ */
 - (void)registerForPushNotifications {
     NSSet *categories;
     UIUserNotificationType types;
@@ -37,19 +78,19 @@ static NSString const *BaseAPIPath = @"http://clank.sudostudios.com/yes";
     UIMutableUserNotificationCategory *category;
     UIMutableUserNotificationAction *yes, *no;
     
-    yes = [UIMutableUserNotificationAction new];
-    yes.title = @"Yes";
-    yes.identifier = @"yes";
-    yes.destructive = NO;
+    yes                        = [UIMutableUserNotificationAction new];
+    yes.title                  = @"Yes";
+    yes.identifier             = @"yes";
+    yes.destructive            = NO;
     yes.authenticationRequired = NO;
-    yes.activationMode = UIUserNotificationActivationModeBackground;
+    yes.activationMode         = UIUserNotificationActivationModeBackground;
     
-    no = [UIMutableUserNotificationAction new];
-    no.title = @"No";
-    no.identifier = @"no";
-    no.destructive = YES;
+    no                        = [UIMutableUserNotificationAction new];
+    no.title                  = @"No";
+    no.identifier             = @"no";
+    no.destructive            = YES;
     no.authenticationRequired = NO;
-    no.activationMode = UIUserNotificationActivationModeBackground;
+    no.activationMode         = UIUserNotificationActivationModeBackground;
     
     category = [[UIMutableUserNotificationCategory alloc] init];
     category.identifier = @"question";
@@ -63,75 +104,79 @@ static NSString const *BaseAPIPath = @"http://clank.sudostudios.com/yes";
     [[UIApplication sharedApplication] registerForRemoteNotifications];
 }
 
-- (void)registerUser:(YNUser *)user {
-    NSURL *url = [NSURL URLWithString:[BaseAPIPath stringByAppendingString:@"/register"]];
-    NSDictionary *params = @{
-                             @"email": user.email,
-                             @"apnID": [[[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"] description]
-                             };
+/**
+ *  This talks to the server to register our push key with our email address
+ *
+ *  @param user       an object representing our current user
+ *  @param completion a block that returns a dictionary object containing either {success: NSString} or {error: NSError}
+ */
+- (void)registerUser:(YNUser *)user completion:(APICompletion)completion {
+    NSDictionary *params = @{ @"email": user.email,
+                              @"apnID": [[[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"] description] };
     
-    FSNConnection *c = [FSNConnection withUrl:url method:FSNRequestMethodPOST
-                                      headers:nil parameters:params parseBlock:^id(FSNConnection *conn, NSError **e)
-    {
-        return [NSJSONSerialization JSONObjectWithData:conn.responseData options:0 error:e];
-        
-    }
-                              completionBlock:^(FSNConnection *conn)
-    {
+    FSNConnection *connection = [FSNConnection apiEndpoint:@"/register" withParameters:params completion:^(FSNConnection *c) {
         NSString *message;
         NSDictionary *result;
         
-        NSLog(@"data: %@\nresult: %@\nerror: %@", [conn.responseData stringFromUTF8], conn.parseResult, conn.error);
+        NSLog(@"data: %@\nresult: %@\nerror: %@", [c.responseData stringFromUTF8], c.parseResult, c.error);
         
         message = @"Failed to register your device";
-        if(conn.parseResult != nil) {
-            result = (NSDictionary *)conn.parseResult;
+        if([c.parseResult isKindOfClass:[NSDictionary class]]) {
+            result = (NSDictionary *)c.parseResult;
             
             if(result[@"success"]) {
                 message =[NSString stringWithFormat:@"Successfully registered your device as user: %@", result[@"userID"]];
             }
+        } else {
+            result = @{@"error": c.error};
         }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[[UIAlertView alloc] initWithTitle:@"Register device"
-                                        message:message
-                                       delegate:nil
-                              cancelButtonTitle:@"Ok"
-                              otherButtonTitles:nil] show];
-        });
-    } progressBlock:nil];
+        completion(result);
+
+    }];
     
-    [c start];
+    [connection start];
 
 }
 
-- (void)addUserAsFriend:(YNUser *)user {
-    NSURL *url = [NSURL URLWithString:[BaseAPIPath stringByAppendingString:@"/lookup"]];
-    NSDictionary *params = @{
-                             @"email": user.email
-                             };
+/**
+ *  Talks to the server to see if the user provided is registered with the system
+ *
+ *  @param user       a user to look up
+ *  @param completion a block that returns a dictionary object containing either {success: NSString} or {error: NSError}
+ */
+- (void)addUserAsFriend:(YNUser *)user completion:(APICompletion)completion{
+    NSDictionary *params = @{ @"email": user.email };
     
-    FSNConnection *c = [FSNConnection withUrl:url method:FSNRequestMethodGET headers:nil parameters:params
-                                   parseBlock:^id(FSNConnection *conn, NSError **e)
-    {
-        return [NSJSONSerialization JSONObjectWithData:conn.responseData options:0 error:e];
-    } completionBlock:^(FSNConnection *conn)
-    {
+    FSNConnection *connection = [FSNConnection apiEndpoint:@"/lookup" withParameters:params completion:^(FSNConnection *c) {
         NSDictionary *result;
         NSNumber *userID;
         
-        if([conn.parseResult isKindOfClass:[NSDictionary class]]) {
-            result = (NSDictionary *)conn.parseResult;
+        if([c.parseResult isKindOfClass:[NSDictionary class]]) {
+            result = (NSDictionary *)c.parseResult;
             if(result[@"success"]) {
                 // add friend
                 userID = result[@"respondent"];
             }
         } else {
-            // server error
+            result = @{@"error": c.error};
         }
-    } progressBlock:nil];
+        
+        completion(result);
+        
+    }];
     
-    [c start];
+    [connection start];
+}
+
+/**
+ *  Talks to the server to ask a question
+ *
+ *  @param question   the question that should be asked
+ *  @param completion a block that returns a dictionary object containing either {success: NSString} or {error: NSError}
+ */
+- (void)askQuestion:(YNQuestion *)question completion:(APICompletion)completion {
+    
 }
 
 @end
