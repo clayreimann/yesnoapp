@@ -33,7 +33,7 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Friend" textLabel="TcM-0C-fYz" detailTextLabel="2qa-Pi-qwD" style="IBUITableViewCellStyleSubtitle" id="1jU-78-2iy">
+                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="friend" textLabel="TcM-0C-fYz" detailTextLabel="2qa-Pi-qwD" style="IBUITableViewCellStyleSubtitle" id="1jU-78-2iy">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1jU-78-2iy" id="BDI-IX-Yf2">
                                     <autoresizingMask key="autoresizingMask"/>

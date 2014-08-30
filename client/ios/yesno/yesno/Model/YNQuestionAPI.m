@@ -147,7 +147,7 @@ static NSString const *BaseAPIPath = @"http://clank.sudostudios.com/yes";
  *  @param completion a block that returns a dictionary object containing either {success: NSString} or {error: NSError}
  */
 - (void)addUserAsFriend:(YNUser *)user completion:(APICompletion)completion{
-    NSDictionary *params = @{ @"email": user.email };
+    NSDictionary *params = @{ @"respondent": user.email };
     
     FSNConnection *connection = [FSNConnection apiEndpoint:@"/lookup" withParameters:params completion:^(FSNConnection *c) {
         NSDictionary *result;

@@ -10,6 +10,7 @@
 
 #import "StringConstants.h"
 #import "YNQuestionDataSource.h"
+#import "YNUser.h"
 
 @interface YNContactListViewController () {
     YNQuestionDataSource *_source;
@@ -43,7 +44,15 @@
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    YNUser *user;
+    UITableViewCell *cell;
     
+    user = [_source userForRowAtIndexPath:indexPath];
+    cell = [tableView dequeueReusableCellWithIdentifier:@"friend" forIndexPath:indexPath];
+    cell.textLabel.text = user.name;
+    cell.detailTextLabel.text = user.email;
+    
+    return cell;
 }
 
 @end
